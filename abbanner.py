@@ -1,6 +1,28 @@
 #!/usr/bin/env python3
 # AbhiByte Terminal Banner - Cross-Platform (Windows, Linux, Termux)
+import argparse  # Add this at the top
 
+class AbhiByteBanner:
+    def __init__(self, name=None):  # Accept custom name
+        self.platform = self.detect_platform()
+        self.config = self.load_config()
+        # Override config name if provided
+        if name:
+            self.config['name'] = name
+        self.colors = self.setup_colors()
+        self.width = self.get_terminal_width()
+
+def main():
+    # Set up argument parser
+    parser = argparse.ArgumentParser(description='AbhiByte Banner')
+    parser.add_argument('--name', help='Set your custom name')
+    args = parser.parse_args()
+
+    banner = AbhiByteBanner(name=args.name)  # Pass name if provided
+    banner.display()
+
+if __name__ == "__main__":
+    main()
 import os
 import sys
 import platform
